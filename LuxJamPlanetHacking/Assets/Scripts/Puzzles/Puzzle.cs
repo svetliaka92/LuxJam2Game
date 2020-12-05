@@ -4,22 +4,32 @@ using UnityEngine;
 
 public class Puzzle : MonoBehaviour
 {
-    [SerializeField] private bool isInUI;
-    [SerializeField] private BaseComponent[] components;
+    [SerializeField] protected BaseComponent[] components;
+    protected bool isCompleted = false;
 
-    public bool IsInUI => isInUI;
-
-    public void Init()
+    public virtual void Init()
     {
         foreach (BaseComponent component in components)
         {
             // disable component
-            // set component puzzle parent to this
+            component.Init(this);
+            component.Enable(false);
         }
     }
 
-    public void StartPuzzle()
+    public virtual void StartPuzzle()
     {
         // enable components
+    }
+
+    public virtual void OnComponentInteract(BaseComponent component, object data = null)
+    {
+        //..
+    }
+
+    protected virtual void OnComplete()
+    {
+        isCompleted = true;
+        print($"Puzzle: {gameObject} completed");
     }
 }

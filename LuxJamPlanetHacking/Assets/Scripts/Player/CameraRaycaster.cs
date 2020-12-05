@@ -14,7 +14,10 @@ public class CameraRaycaster : MonoBehaviour
     private void Update()
     {
         HandleHover();
-        HandleInteract();
+        if (Game.Instance.IsInteracting)
+            HandleInteractInPuzzle();
+        else
+            HandleInteractWorld();
     }
 
     private void HandleHover()
@@ -28,15 +31,21 @@ public class CameraRaycaster : MonoBehaviour
             raycastHandler = null;
     }
 
-    private void HandleInteract()
+    private void HandleInteractWorld()
     {
         if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (raycastHandler != null)
-            {
-                print("Interacting with: " + raycastHandler);
-                raycastHandler.HandleRaycast();
-            }
-        }
+            InteractWithObject();
+    }
+
+    private void HandleInteractInPuzzle()
+    {
+        if (Input.GetMouseButtonDown(0))
+            InteractWithObject();
+    }
+
+    private void InteractWithObject()
+    {
+        if (raycastHandler != null)
+            raycastHandler.HandleRaycast();
     }
 }

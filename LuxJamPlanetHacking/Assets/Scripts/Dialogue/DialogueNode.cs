@@ -17,7 +17,7 @@ public class DialogueNode : ScriptableObject
     public string Text => text;
     public List<string> Children => children;
     public Rect GetRect => rect;
-    public string OnEnterAction => OnEnterAction;
+    public string OnEnterAction => onEnterAction;
     public string OnExitAction => onExitAction;
     public bool CheckCondition(IEnumerable<IPredicateEvaluator> evaluators) => condition.Check(evaluators);
 

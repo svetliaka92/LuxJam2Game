@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PCController : MonoBehaviour
 {
+    [SerializeField] private Dialogue PCDialogue;
+    [SerializeField] private AIConversant aiConversant;
     [SerializeField] private GameObject UICanvas;
 
     private void Awake()
@@ -16,6 +18,7 @@ public class PCController : MonoBehaviour
         if (type == InteractionType.PC)
         {
             UICanvas.SetActive(true);
+            Game.Instance.PlayerConversant.StartDialogue(PCDialogue, aiConversant);
         }
         else
         {
