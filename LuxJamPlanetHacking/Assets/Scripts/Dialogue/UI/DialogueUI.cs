@@ -21,6 +21,8 @@ public class DialogueUI : MonoBehaviour
         _player = player;
         _player.onConversationUpdated += UpdateUI;
 
+        conversantName.text = _player.GetAIConversantName();
+
         if (nextButton)
             nextButton.onClick.AddListener(_player.Next);
 
@@ -38,13 +40,12 @@ public class DialogueUI : MonoBehaviour
         if (!_player.IsActive())
             return;
 
-        conversantName.text = _player.GetCurrentConversantName();
-        //AIResponseRoot.gameObject.SetActive(!_player.IsChoosing());
         choiceRoot.gameObject.SetActive(_player.IsChoosing());
 
         if (_player.IsChoosing())
         {
             BuildChoiceList();
+            nextButton.gameObject.SetActive(false);
         }
         else
         {

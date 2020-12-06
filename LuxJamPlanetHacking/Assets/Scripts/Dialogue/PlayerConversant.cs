@@ -63,6 +63,14 @@ public class PlayerConversant : MonoBehaviour
         return (IsChoosing()) ? playerName : currentConversant.GetAIName;
     }
 
+    public string GetAIConversantName()
+    {
+        if (currentConversant)
+            return currentConversant.GetAIName;
+
+        return "";
+    }
+
     public IEnumerable<DialogueNode> GetChoices()
     {
         return FilterOnCondition(currentDialogue.GetPlayerChoices(currentNode));

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BaseComponent : MonoBehaviour, IRaycastHandler
 {
+    [SerializeField] private Collider componentCollider;
     protected Puzzle _parent;
     protected bool isEnabled = false;
 
@@ -25,10 +26,14 @@ public class BaseComponent : MonoBehaviour, IRaycastHandler
     protected virtual void OnComponentInteract()
     {
         //..
+        if (!IsEnabled)
+            return;
     }
 
     public void Enable(bool flag = true)
     {
         isEnabled = flag;
+        if (componentCollider)
+            componentCollider.enabled = flag;
     }
 }

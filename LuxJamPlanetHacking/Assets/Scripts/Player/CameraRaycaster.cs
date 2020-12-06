@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraRaycaster : MonoBehaviour
 {
@@ -13,11 +14,30 @@ public class CameraRaycaster : MonoBehaviour
 
     private void Update()
     {
+        if (IsCursorOverUI())
+            return;
+
         HandleHover();
         if (Game.Instance.IsInteracting)
             HandleInteractInPuzzle();
         else
             HandleInteractWorld();
+    }
+
+    private bool IsCursorOverUI()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+
+        foreach (RaycastResult raycastResult in results)
+        {
+            if (raycastResult.gameObject.layer == 5)
+                return true;
+        }
+
+        return false;
     }
 
     private void HandleHover()
@@ -26,7 +46,11 @@ public class CameraRaycaster : MonoBehaviour
         RaycastHit hitInfo;
 
         if (Physics.Raycast(ray, out hitInfo, _maxDistance))
+        {
             raycastHandler = hitInfo.collider.GetComponent<IRaycastHandler>();
+            if (raycastHandler == null)
+                raycastHandler = hitInfo.collider.GetComponentInParent<IRaycastHandler>();
+        }
         else
             raycastHandler = null;
     }

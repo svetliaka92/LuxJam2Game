@@ -1,0 +1,13 @@
+NumberPuzzleComplete
+OpenEnergyPuzzle
+OpenColorPuzzle
+LoadWinScreen
+
+
+ColorBlockPuzzleComplete
+
+Polish items to add in the room:
+Radiator in front of the door/under the hint board
+Cable canals
+Lights
+Vent

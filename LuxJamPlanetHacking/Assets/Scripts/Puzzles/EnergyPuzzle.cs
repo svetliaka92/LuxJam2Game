@@ -19,9 +19,9 @@ public class EnergyPuzzle : Puzzle
 
     private bool isBusy = false;
 
-    public override void Init()
+    public override void Init(PuzzleController controller, string puzzleId)
     {
-        base.Init();
+        base.Init(controller, puzzleId);
 
         blocks = new EnergyBlock[components.Length];
         for (int i = 0; i < components.Length; ++i)
@@ -58,9 +58,6 @@ public class EnergyPuzzle : Puzzle
     public override void StartPuzzle()
     {
         base.StartPuzzle();
-
-        foreach (BaseComponent component in components)
-            component.Enable();
     }
 
     public override void OnComponentInteract(BaseComponent component, object data = null)

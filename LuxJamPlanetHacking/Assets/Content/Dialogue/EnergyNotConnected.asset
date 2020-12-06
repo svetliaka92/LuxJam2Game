@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6507934758772593611
+--- !u!114 &-2851328993399995115
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70c25ae577492c945b8dda5a375a0ac0, type: 3}
-  m_Name: 3a10b488-f944-470e-bd95-3749be18d038
+  m_Name: a61d3b3a-935d-447c-a719-72ba096275b0
   m_EditorClassIdentifier: 
   isPlayerSpeaking: 0
-  text: PC text end
+  text: Energy not connected. Solve puzzle first
   children: []
   rect:
     serializedVersion: 2
-    x: 547
-    y: 95
+    x: 284
+    y: 46
     width: 200
     height: 100
   onEnterAction: 
-  onExitAction: NumberPuzzle
+  onExitAction: 
   condition:
     and: []
 --- !u!114 &11400000
@@ -35,15 +35,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a73f7a31f6b2ee49b7e37959f9f2eba, type: 3}
-  m_Name: PCDialogue
+  m_Name: EnergyNotConnected
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: 3951607384288214019}
-  - {fileID: 137529920689184406}
-  - {fileID: -6507934758772593611}
+  - {fileID: 2205129800945432113}
+  - {fileID: -2851328993399995115}
   newNodeOffset: {x: 250, y: 0}
   displayPlayerNodeTextOnChoice: 0
---- !u!114 &137529920689184406
+--- !u!114 &2205129800945432113
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -53,42 +52,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70c25ae577492c945b8dda5a375a0ac0, type: 3}
-  m_Name: 5896d6a5-b566-4767-b479-86a9be6864d9
-  m_EditorClassIdentifier: 
-  isPlayerSpeaking: 1
-  text: Player option 1
-  children:
-  - 3a10b488-f944-470e-bd95-3749be18d038
-  rect:
-    serializedVersion: 2
-    x: 294
-    y: 95
-    width: 200
-    height: 100
-  onEnterAction: 
-  onExitAction: 
-  condition:
-    and: []
---- !u!114 &3951607384288214019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c25ae577492c945b8dda5a375a0ac0, type: 3}
-  m_Name: 457ec40c-1475-4141-83c7-4636aa4ab0a2
+  m_Name: bfe2e228-ce1a-49a0-a2cb-95443648d3f2
   m_EditorClassIdentifier: 
   isPlayerSpeaking: 0
-  text: PC text 1
+  text: Attempting connection...
   children:
-  - 5896d6a5-b566-4767-b479-86a9be6864d9
+  - a61d3b3a-935d-447c-a719-72ba096275b0
   rect:
     serializedVersion: 2
-    x: 45
-    y: 95
+    x: 33
+    y: 46
     width: 200
     height: 100
   onEnterAction: 

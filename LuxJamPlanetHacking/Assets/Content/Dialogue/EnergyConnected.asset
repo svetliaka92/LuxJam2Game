@@ -1,0 +1,324 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6826658420117011888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c25ae577492c945b8dda5a375a0ac0, type: 3}
+  m_Name: d39b361d-12c7-4afd-bae5-f3330bc96f8f
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: Well...I tried...
+  children:
+  - 8ad86c8d-5e6e-40c5-a235-2c289158b10f
+  rect:
+    serializedVersion: 2
+    x: 1289
+    y: 136
+    width: 200
+    height: 100
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and:
+    - or:
+      - predicate: ColorBlockPuzzleComplete
+        isNegated: 1
+        parameters:
+        - ColorBlockPuzzleComplete
+--- !u!114 &-6228560763664456408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c25ae577492c945b8dda5a375a0ac0, type: 3}
+  m_Name: 40511f57-2a32-4de4-b61f-622c98377411
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Attempt to bypass the security?
+  children:
+  - d80ec3e6-ac6f-48df-b041-f6fd54915479
+  - f22efc0a-11b3-4765-bec3-3cbb40bd798d
+  rect:
+    serializedVersion: 2
+    x: 559
+    y: 84
+    width: 200
+    height: 100
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &-4765354330297018060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c25ae577492c945b8dda5a375a0ac0, type: 3}
+  m_Name: d80ec3e6-ac6f-48df-b041-f6fd54915479
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: YEP
+  children:
+  - c5f07839-dcf7-42c0-9f5b-4ae8d01cfe10
+  rect:
+    serializedVersion: 2
+    x: 801
+    y: 84
+    width: 200
+    height: 100
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &-4635031735725697018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c25ae577492c945b8dda5a375a0ac0, type: 3}
+  m_Name: c5f07839-dcf7-42c0-9f5b-4ae8d01cfe10
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Loading protocols...
+  children:
+  - 998b955f-30dd-42d9-ab99-67c85fc9dd35
+  - d39b361d-12c7-4afd-bae5-f3330bc96f8f
+  rect:
+    serializedVersion: 2
+    x: 1047
+    y: 85
+    width: 200
+    height: 100
+  onEnterAction: OpenColorPuzzle
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &-1022723272382075704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c25ae577492c945b8dda5a375a0ac0, type: 3}
+  m_Name: 8ad86c8d-5e6e-40c5-a235-2c289158b10f
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: You can try again :)
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 1538
+    y: 199
+    width: 200
+    height: 100
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a73f7a31f6b2ee49b7e37959f9f2eba, type: 3}
+  m_Name: EnergyConnected
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 3298079914814644391}
+  - {fileID: 8271582950945780957}
+  - {fileID: -6228560763664456408}
+  - {fileID: -4765354330297018060}
+  - {fileID: -4635031735725697018}
+  - {fileID: 6371322610489195457}
+  - {fileID: -1022723272382075704}
+  - {fileID: 6947467898448749030}
+  - {fileID: -6826658420117011888}
+  - {fileID: 8147492645661119138}
+  - {fileID: 8856996731849596277}
+  newNodeOffset: {x: 250, y: 0}
+  displayPlayerNodeTextOnChoice: 0
+--- !u!114 &3298079914814644391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c25ae577492c945b8dda5a375a0ac0, type: 3}
+  m_Name: 73e1da83-5630-4e9b-a5e7-33e4c3abab8c
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Attempting connection...
+  children:
+  - d22224b0-a852-4570-8f2c-7c8c9a8f65ca
+  rect:
+    serializedVersion: 2
+    x: 59
+    y: 84
+    width: 200
+    height: 100
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &6371322610489195457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c25ae577492c945b8dda5a375a0ac0, type: 3}
+  m_Name: f22efc0a-11b3-4765-bec3-3cbb40bd798d
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: No
+  children:
+  - 8ad86c8d-5e6e-40c5-a235-2c289158b10f
+  rect:
+    serializedVersion: 2
+    x: 802
+    y: 199
+    width: 200
+    height: 100
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &6947467898448749030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c25ae577492c945b8dda5a375a0ac0, type: 3}
+  m_Name: 998b955f-30dd-42d9-ab99-67c85fc9dd35
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: Done!
+  children:
+  - 52e8e143-5e56-436a-9e6b-f418e4b9e53d
+  rect:
+    serializedVersion: 2
+    x: 1289
+    y: 40
+    width: 200
+    height: 100
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and:
+    - or:
+      - predicate: ColorBlockPuzzleComplete
+        isNegated: 0
+        parameters:
+        - ColorBlockPuzzleComplete
+--- !u!114 &8147492645661119138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c25ae577492c945b8dda5a375a0ac0, type: 3}
+  m_Name: 52e8e143-5e56-436a-9e6b-f418e4b9e53d
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Good work! Restarting now. Enter again...
+  children:
+  - a6a6d130-62af-4582-8a06-ceaf3ae0e21b
+  rect:
+    serializedVersion: 2
+    x: 1539
+    y: 40
+    width: 200
+    height: 100
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &8271582950945780957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c25ae577492c945b8dda5a375a0ac0, type: 3}
+  m_Name: d22224b0-a852-4570-8f2c-7c8c9a8f65ca
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Connection established!
+  children:
+  - 40511f57-2a32-4de4-b61f-622c98377411
+  rect:
+    serializedVersion: 2
+    x: 309
+    y: 84
+    width: 200
+    height: 100
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &8856996731849596277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c25ae577492c945b8dda5a375a0ac0, type: 3}
+  m_Name: a6a6d130-62af-4582-8a06-ceaf3ae0e21b
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: You have hacked the Planet mainframe. Good job, Hacker!
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 1789
+    y: 40
+    width: 200
+    height: 100
+  onEnterAction: 
+  onExitAction: OpenWinScreen
+  condition:
+    and: []

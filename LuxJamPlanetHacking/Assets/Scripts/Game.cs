@@ -11,7 +11,6 @@ public class Game : MonoBehaviour
     [SerializeField] private PlayerController _player;
     [SerializeField] private PCController _pcController;
     [SerializeField] private PuzzleController _puzzleController;
-    [SerializeField] private PlayerConversant _playerConversant;
     [SerializeField] private DialogueUI _dialogueUI;
 
     private bool _isPaused = false;
@@ -20,7 +19,6 @@ public class Game : MonoBehaviour
     private bool _isInteracting = false;
     public bool IsInteracting => _isInteracting;
     public PlayerController Player => _player;
-    public PlayerConversant PlayerConversant => _playerConversant; 
 
     private InteractionType _type = InteractionType.None;
 
@@ -32,7 +30,7 @@ public class Game : MonoBehaviour
         _instance = this;
 
         _puzzleController.Init();
-        _dialogueUI.Init(_playerConversant);
+        _dialogueUI.Init(_player.GetPlayerConversant);
 
         onPlayerInteractEvent += _pcController.OnPlayerInteracted;
         onPlayerInteractEvent += _puzzleController.OnPlayerInteracted;
@@ -90,5 +88,16 @@ public class Game : MonoBehaviour
     {
         // player ending interaction
         _isInteracting = false;
+    }
+
+    public void OnPuzzleComplete(string id)
+    {
+        _player.HandlePuzzleComplete(id);
+        _pcController.OnPuzzleComplete(id);
+    }
+
+    public void OpenWinScreen()
+    {
+        print("Game won!");
     }
 }
