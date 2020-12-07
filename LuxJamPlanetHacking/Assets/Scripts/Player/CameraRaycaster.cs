@@ -6,11 +6,24 @@ using UnityEngine.EventSystems;
 
 public class CameraRaycaster : MonoBehaviour
 {
+    private static CameraRaycaster _instance;
+    public static CameraRaycaster Instance => _instance;
+
     [SerializeField] private Camera _mainCamera;
     [SerializeField] private float _maxDistance = 2f;
 
     IRaycastHandler raycastHandler;
     public IRaycastHandler RaycastHandler => raycastHandler;
+
+    public void Init()
+    {
+        _instance = this;
+    }
+
+    private void OnDestroy()
+    {
+        _instance = null;
+    }
 
     private void Update()
     {

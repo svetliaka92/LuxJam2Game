@@ -6,6 +6,9 @@ using UnityEngine;
 public class ColorBlockPuzzle : Puzzle
 {
     [SerializeField] private GameObject puzzleUI;
+    [SerializeField] private GameObject puzzleRender;
+    [SerializeField] private GameObject puzzleButtons;
+    [SerializeField] private GameObject completeText;
 
     [SerializeField] private ColorBlock[] blocks;
     [SerializeField] private ColorButton[] buttons;
@@ -77,6 +80,9 @@ public class ColorBlockPuzzle : Puzzle
     public override void OnComponentInteract(BaseComponent component, object data = null)
     {
         base.OnComponentInteract(component, data);
+
+        if (isCompleted)
+            return;
 
         ColorButton button = component as ColorButton;
 
@@ -151,5 +157,19 @@ public class ColorBlockPuzzle : Puzzle
 
         if (!isCompleted)
             OnComplete();
+    }
+
+    protected override void OnComplete()
+    {
+        base.OnComplete();
+
+        LeanTween.delayedCall(1f, HidePuzzle);
+    }
+
+    private void HidePuzzle()
+    {
+        puzzleRender.SetActive(false);
+        puzzleButtons.SetActive(false);
+        completeText.SetActive(true);
     }
 }

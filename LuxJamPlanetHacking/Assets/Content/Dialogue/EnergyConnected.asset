@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Name: 40511f57-2a32-4de4-b61f-622c98377411
   m_EditorClassIdentifier: 
   isPlayerSpeaking: 0
-  text: Attempt to bypass the security?
+  text: Connection established. There seems to be a protection system in place. Would
+    you like to try to bypass it?
   children:
   - d80ec3e6-ac6f-48df-b041-f6fd54915479
   - f22efc0a-11b3-4765-bec3-3cbb40bd798d
@@ -71,7 +72,7 @@ MonoBehaviour:
   m_Name: d80ec3e6-ac6f-48df-b041-f6fd54915479
   m_EditorClassIdentifier: 
   isPlayerSpeaking: 1
-  text: YEP
+  text: Yes
   children:
   - c5f07839-dcf7-42c0-9f5b-4ae8d01cfe10
   rect:
@@ -124,7 +125,7 @@ MonoBehaviour:
   m_Name: 8ad86c8d-5e6e-40c5-a235-2c289158b10f
   m_EditorClassIdentifier: 
   isPlayerSpeaking: 0
-  text: You can try again :)
+  text: Alright. Try again when you are ready.
   children: []
   rect:
     serializedVersion: 2
@@ -180,7 +181,7 @@ MonoBehaviour:
   - d22224b0-a852-4570-8f2c-7c8c9a8f65ca
   rect:
     serializedVersion: 2
-    x: 59
+    x: 54
     y: 84
     width: 200
     height: 100
@@ -258,12 +259,12 @@ MonoBehaviour:
   m_Name: 52e8e143-5e56-436a-9e6b-f418e4b9e53d
   m_EditorClassIdentifier: 
   isPlayerSpeaking: 0
-  text: Good work! Restarting now. Enter again...
+  text: Good work!
   children:
   - a6a6d130-62af-4582-8a06-ceaf3ae0e21b
   rect:
     serializedVersion: 2
-    x: 1539
+    x: 1540
     y: 40
     width: 200
     height: 100
@@ -289,7 +290,7 @@ MonoBehaviour:
   - 40511f57-2a32-4de4-b61f-622c98377411
   rect:
     serializedVersion: 2
-    x: 309
+    x: 288
     y: 84
     width: 200
     height: 100
@@ -310,7 +311,7 @@ MonoBehaviour:
   m_Name: a6a6d130-62af-4582-8a06-ceaf3ae0e21b
   m_EditorClassIdentifier: 
   isPlayerSpeaking: 0
-  text: You have hacked the Planet mainframe. Good job, Hacker!
+  text: 'Access to Planet mainframe granted. '
   children: []
   rect:
     serializedVersion: 2

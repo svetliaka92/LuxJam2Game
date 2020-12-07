@@ -15,7 +15,7 @@ public class StatsProvider : MonoBehaviour, IPredicateEvaluator
 
     [SerializeField] private PlayerStat[] playerStats;
 
-    private Dictionary<string, PlayerStat> statsLookup;
+    private Dictionary<string, PlayerStat> statsLookup = new Dictionary<string, PlayerStat>();
 
     private void Awake()
     {

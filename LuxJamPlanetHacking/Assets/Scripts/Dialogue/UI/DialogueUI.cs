@@ -13,6 +13,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private DialogueChoiceUI choicePrefab;
     [SerializeField] private Button quitButton;
     [SerializeField] private TextMeshProUGUI conversantName;
+    [SerializeField] private TextMeshProUGUI debugText;
 
     private PlayerConversant _player;
 
@@ -52,6 +53,8 @@ public class DialogueUI : MonoBehaviour
             AIText.text = _player.GetText();
             nextButton.gameObject.SetActive(_player.HasNext());
         }
+
+        //debugText.text = "Player has next: " + _player.HasNext() + ", Next button state: " + nextButton.gameObject.activeSelf;
     }
 
     private void BuildChoiceList()

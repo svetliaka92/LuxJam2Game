@@ -8,18 +8,24 @@ public class Game : MonoBehaviour
     private static Game _instance;
     public static Game Instance => _instance;
 
+    [SerializeField] private CameraRaycaster _cameraRaycaster;
     [SerializeField] private PlayerController _player;
     [SerializeField] private PCController _pcController;
     [SerializeField] private PuzzleController _puzzleController;
     [SerializeField] private DialogueUI _dialogueUI;
+    [SerializeField] private GameObject _pauseMenu;
 
-    [SerializeField] private int testValue = 1;
+    [SerializeField] private string winSceneName = "Win";
 
     private bool _isPaused = false;
     public bool IsPaused => _isPaused;
 
     private bool _isInteracting = false;
     public bool IsInteracting => _isInteracting;
+
+    private bool isStarted = false;
+    public bool IsStarted => isStarted;
+
     public PlayerController Player => _player;
 
     private InteractionType _type = InteractionType.None;
@@ -30,7 +36,9 @@ public class Game : MonoBehaviour
     {
         //..
         _instance = this;
+        _isPaused = false;
 
+        _cameraRaycaster.Init();
         _puzzleController.Init();
         _dialogueUI.Init(_player.GetPlayerConversant);
 
@@ -38,15 +46,58 @@ public class Game : MonoBehaviour
         onPlayerInteractEvent += _puzzleController.OnPlayerInteracted;
     }
 
+    private void OnDestroy()
+    {
+        isStarted = false;
+        _instance = null;
+    }
+
+    internal void StartGame()
+    {
+        isStarted = true;
+    }
+
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // pause game
+            // activate pause panel
+            _isPaused = !_isPaused;
+            UpdatePauseMenu();
+        }
+
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.P))
             ReturnPlayerToStandingPosition();
 
         if (Input.GetKeyDown(KeyCode.T))
-            print(string.Format("{0:X}", testValue));
+            StartGame();
 #endif
+    }
+
+    public void Unpause()
+    {
+        _isPaused = false;
+        UpdatePauseMenu();
+    }
+
+    public void GoToMainMenu()
+    {
+        //..
+        // Call ToMainMenu on SceneLoader
+        if (PersistentObjects.Instance)
+            PersistentObjects.Instance.LoadScene("MainMenu");
+    }
+
+    private void UpdatePauseMenu()
+    {
+        CursorController.Instance.Enable(_isPaused);
+        _pauseMenu.SetActive(_isPaused);
+
+        if (!_isPaused
+            && _isInteracting)
+            CursorController.Instance.Enable(true);
     }
 
     public void OnPlayerInteract(InteractionType type = InteractionType.None, Transform location = null)
@@ -103,6 +154,10 @@ public class Game : MonoBehaviour
 
     public void OpenWinScreen()
     {
-        print("Game won!");
+        if (PersistentObjects.Instance)
+        {
+            PersistentObjects.Instance.LoadScene(winSceneName);
+            CursorController.Instance.Enable(true);
+        }
     }
 }

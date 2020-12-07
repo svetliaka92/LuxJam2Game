@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform cameraArm;
     [SerializeField] private float movementSpeed = 5f;
     [SerializeField] private float rotationSpeed = 10f;
+    [SerializeField] private float pitchMax = 65f;
+    [SerializeField] private float pitchMin = -60f;
 
     [SerializeField] private PlayerConversant _playerConversant;
     [SerializeField] private PlayerPuzzleDialogueHandler _playerDialogueHandler;
@@ -18,7 +20,8 @@ public class PlayerController : MonoBehaviour
     public PlayerPuzzleDialogueHandler GetPlayerDialogueHandler => _playerDialogueHandler;
 
     private Vector3 movement;
-    private Vector3 rotation;
+    private Vector3 playerRotation;
+    private Vector3 cameraRotation;
 
     private Vector3 interactionStartPosition;
     private Vector3 interactionStartRotation;
@@ -42,11 +45,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (!Game.Instance.IsStarted)
+            return;
+
         if (Game.Instance != null
             && !Game.Instance.IsPaused
             && !Game.Instance.IsInteracting)
         {
-            //..
             HandleInput();
         }
     }
@@ -59,16 +64,25 @@ public class PlayerController : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y");
 
         movement = player.right * horizontal + player.forward * vertical;
-        rotation = new Vector3(mouseY, mouseX, 0f);
+        playerRotation = new Vector3(0f, mouseX, 0f);
+        cameraRotation = new Vector3(-mouseY, 0f, 0f);
 
-        Vector3 rotationThisFrame = rotation * rotationSpeed * Time.deltaTime;
+        Vector3 playerRotationThisFrame = playerRotation * rotationSpeed * Time.deltaTime;
+        Vector3 camRotationThisFrame = cameraRotation * rotationSpeed * Time.deltaTime;
 
-        player.eulerAngles = player.eulerAngles + new Vector3(0f, rotationThisFrame.y, 0f);
-        cameraArm.eulerAngles = cameraArm.eulerAngles + new Vector3(-rotationThisFrame.x, 0f, 0f);
+        Vector3 finalRotation = cameraArm.localEulerAngles + camRotationThisFrame;
+        //finalRotation.x = Mathf.Clamp(finalRotation.x, pitchMin, pitchMax);
+        //print(finalRotation);
+
+        player.eulerAngles = player.eulerAngles + playerRotationThisFrame;
+        cameraArm.localEulerAngles = finalRotation;
     }
 
     private void FixedUpdate()
     {
+        if (!Game.Instance.IsStarted)
+            return;
+
         if (Game.Instance != null
             && !Game.Instance.IsPaused
             && !Game.Instance.IsInteracting)
@@ -87,7 +101,8 @@ public class PlayerController : MonoBehaviour
         rigidbody.detectCollisions = false;
 
         movement = Vector3.zero;
-        rotation = Vector3.zero;
+        playerRotation = Vector3.zero;
+        cameraRotation = Vector3.zero;
 
         LeanTween.move(player.gameObject, position, 2f)
                  .setEaseInOutCubic()

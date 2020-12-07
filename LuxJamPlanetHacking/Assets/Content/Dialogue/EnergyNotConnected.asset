@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: a61d3b3a-935d-447c-a719-72ba096275b0
   m_EditorClassIdentifier: 
   isPlayerSpeaking: 0
-  text: Energy not connected. Solve puzzle first
+  text: Connection could not be established. Please check the connector box for faults.
   children: []
   rect:
     serializedVersion: 2

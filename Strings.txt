@@ -7,6 +7,7 @@ LoadWinScreen
 ColorBlockPuzzleComplete
 
 Items to fix:
+Password on the password pane is wrong, should say "Fortitude"
 
 Polish items to add in the room:
 Radiator in front of the door/under the hint board
@@ -14,3 +15,10 @@ Cable canals
 PC Cables
 Lights
 Vent
+
+Wishlist:
+Add stat assignment to the start of the game
+Clamp player pitch rotation
+Add sounds
+
+Credits: font: https://www.dafont.com/retro-gaming.font?l[]=10&l[]=1

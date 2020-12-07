@@ -54,16 +54,18 @@ public class Dialogue : ScriptableObject, ISerializationCallbackReceiver
     }
 
 #if UNITY_EDITOR
-
     public void CreateNode(DialogueNode parentNode)
     {
         DialogueNode createdNode = MakeNode(parentNode);
 
+
         Undo.RegisterCreatedObjectUndo(createdNode, "Created dialogue node");
         Undo.RecordObject(this, "Create dialogue node");
 
+
         AddNode(createdNode);
     }
+#endif
 
     private void AddNode(DialogueNode node)
     {
@@ -71,6 +73,7 @@ public class Dialogue : ScriptableObject, ISerializationCallbackReceiver
         OnValidate();
     }
 
+#if UNITY_EDITOR
     private DialogueNode MakeNode(DialogueNode parentNode)
     {
         DialogueNode createdNode = CreateInstance<DialogueNode>();
@@ -86,9 +89,12 @@ public class Dialogue : ScriptableObject, ISerializationCallbackReceiver
 
         return createdNode;
     }
+#endif
 
+#if UNITY_EDITOR
     public void DeleteNode(DialogueNode nodeToDelete)
     {
+
         Undo.RecordObject(this, "Delete dialogue node");
 
         nodes.Remove(nodeToDelete);
@@ -96,14 +102,16 @@ public class Dialogue : ScriptableObject, ISerializationCallbackReceiver
         CleanDanglingChildren(nodeToDelete);
 
         Undo.DestroyObjectImmediate(nodeToDelete);
-    }
 
+    }
+#endif
+
+#if UNITY_EDITOR
     private void CleanDanglingChildren(DialogueNode nodeToDelete)
     {
         foreach (DialogueNode node in GetAllNodes())
             node.RemoveChild(nodeToDelete.name);
     }
-
 #endif
 
     public void OnBeforeSerialize()
