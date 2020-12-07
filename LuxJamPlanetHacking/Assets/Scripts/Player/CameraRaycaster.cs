@@ -45,14 +45,29 @@ public class CameraRaycaster : MonoBehaviour
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
 
-        if (Physics.Raycast(ray, out hitInfo, _maxDistance))
+        if (Game.Instance.IsInteracting)
         {
-            raycastHandler = hitInfo.collider.GetComponent<IRaycastHandler>();
-            if (raycastHandler == null)
-                raycastHandler = hitInfo.collider.GetComponentInParent<IRaycastHandler>();
+            if (Physics.Raycast(ray, out hitInfo))
+            {
+                raycastHandler = hitInfo.collider.GetComponent<IRaycastHandler>();
+                if (raycastHandler == null)
+                    raycastHandler = hitInfo.collider.GetComponentInParent<IRaycastHandler>();
+            }
+            else
+                raycastHandler = null;
         }
         else
-            raycastHandler = null;
+        {
+            if (Physics.Raycast(ray, out hitInfo, _maxDistance))
+            {
+                raycastHandler = hitInfo.collider.GetComponent<IRaycastHandler>();
+                if (raycastHandler == null)
+                    raycastHandler = hitInfo.collider.GetComponentInParent<IRaycastHandler>();
+            }
+            else
+                raycastHandler = null;
+        }
+        
     }
 
     private void HandleInteractWorld()

@@ -8,6 +8,11 @@ public class NumberPuzzle : Puzzle
     [SerializeField] private NumberBlock[] blocks;
     [SerializeField] private int[] blockCorrectStates;
     [SerializeField] private NumberHint numberHint;
+    [SerializeField] private GameObject passwordPane;
+    [SerializeField] private Transform passwordPaneDownLocation;
+    [SerializeField] private float passwordPaneTweenTime = 1f;
+    [SerializeField] private LeanTweenType passwordPaneTweenEasing = LeanTweenType.easeOutBounce;
+    [SerializeField] private float passwordPaneTweenDelay = 1f;
 
     public override void Init(PuzzleController controller, string puzzleId)
     {
@@ -38,5 +43,14 @@ public class NumberPuzzle : Puzzle
                 return false;
 
         return true;
+    }
+
+    protected override void OnComplete()
+    {
+        base.OnComplete();
+
+        LeanTween.move(passwordPane, passwordPaneDownLocation.position, passwordPaneTweenTime)
+                 .setEase(passwordPaneTweenEasing)
+                 .setDelay(passwordPaneTweenDelay);
     }
 }

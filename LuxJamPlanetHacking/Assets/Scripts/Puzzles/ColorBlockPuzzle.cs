@@ -94,13 +94,13 @@ public class ColorBlockPuzzle : Puzzle
 
         if (direction == ColorButton.Direction.right || direction == ColorButton.Direction.down)
         {
-            startIndex = 2; // TODO - change when assets are imported
+            startIndex = gridSizeX - 1; // TODO - change when assets are imported
             endIndex = 0;
         }
         else
         {
             startIndex = 0;
-            endIndex = 2; // TODO - change when assets are imported
+            endIndex = gridSizeX - 1; // TODO - change when assets are imported
         }
 
         if (type == ColorButton.Type.row)
@@ -119,7 +119,7 @@ public class ColorBlockPuzzle : Puzzle
 
             blockStates[index, endIndex] = tempState;
 
-            for (int i = 0; i < 3; ++i)
+            for (int i = 0; i < gridSizeX; ++i)
                 blockGrid[index, i].SetState(blockStates[index, i]);
         }
         else if (type == ColorButton.Type.column)
@@ -138,7 +138,7 @@ public class ColorBlockPuzzle : Puzzle
 
             blockStates[endIndex, index] = tempState;
 
-            for (int i = 0; i < 3; ++i)
+            for (int i = 0; i < gridSizeX; ++i)
                 blockGrid[i, index].SetState(blockStates[i, index]);
         }
     }

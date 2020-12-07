@@ -12,6 +12,8 @@ public class EnergyBlock : BaseComponent
     [SerializeField] private int[] validConnectionsRight;
     [SerializeField] private int[] validConnectionsDown;
 
+    [SerializeField] private float connectionTweenTime = 0.3f;
+    [SerializeField] private LeanTweenType connectionTweenEasing = LeanTweenType.easeInOutCubic;
     [SerializeField] private Renderer rend;
     [SerializeField] private Material normalMat;
     [SerializeField] private Material connectedMat;
@@ -28,6 +30,9 @@ public class EnergyBlock : BaseComponent
     public bool IsActive => isActive;
 
     private Vector2Int coordinates;
+
+    private int connectionTweenId = -1;
+    private float connectionTweenValue = 0f;
 
     public void SetCoordinates(Vector2Int newCoordinates)
     {
@@ -47,13 +52,42 @@ public class EnergyBlock : BaseComponent
     {
         isConnected = true;
 
-        rend.material = connectedMat;
+        CancelConnectAnimation();
+
+        connectionTweenId = LeanTween.value(connectionTweenValue, 1, connectionTweenTime)
+                                     .setEase(connectionTweenEasing)
+                                     .setOnUpdate(UpdateWireMat)
+                                     .setOnComplete(CompleteConnectAnimation)
+                                     .uniqueId;
     }
 
     public void Disconnect()
     {
         isConnected = false;
 
-        rend.material = normalMat;
+        connectionTweenId = LeanTween.value(connectionTweenValue, 0, connectionTweenTime)
+                                     .setEase(connectionTweenEasing)
+                                     .setOnUpdate(UpdateWireMat)
+                                     .setOnComplete(CompleteConnectAnimation)
+                                     .uniqueId;
+    }
+
+    private void UpdateWireMat(float value)
+    {
+        rend.material.Lerp(normalMat, connectedMat, value);
+    }
+
+    private void CompleteConnectAnimation()
+    {
+        connectionTweenId = -1;
+    }
+
+    private void CancelConnectAnimation()
+    {
+        if (connectionTweenId == -1)
+            return;
+
+        LeanTween.cancel(connectionTweenId);
+        connectionTweenId = -1;
     }
 }

@@ -233,7 +233,7 @@ public class DialogueEditor : EditorWindow
 
         foreach (DialogueNode node in selectedDialogue.GetAllNodes())
             if (node.GetRect.Contains(point))
-                return node;
+                returnNode = node;
 
         return returnNode;
     }

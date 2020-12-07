@@ -13,6 +13,8 @@ public class Game : MonoBehaviour
     [SerializeField] private PuzzleController _puzzleController;
     [SerializeField] private DialogueUI _dialogueUI;
 
+    [SerializeField] private int testValue = 1;
+
     private bool _isPaused = false;
     public bool IsPaused => _isPaused;
 
@@ -41,6 +43,9 @@ public class Game : MonoBehaviour
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.P))
             ReturnPlayerToStandingPosition();
+
+        if (Input.GetKeyDown(KeyCode.T))
+            print(string.Format("{0:X}", testValue));
 #endif
     }
 

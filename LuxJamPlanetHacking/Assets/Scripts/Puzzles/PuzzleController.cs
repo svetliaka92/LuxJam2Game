@@ -12,6 +12,7 @@ public class PuzzleController : MonoBehaviour
     [SerializeField] private Transform energyPuzzleCapRemovedLocation;
     [SerializeField] private float energyPuzzleCapMoveTime = 2f;
     [SerializeField] private LeanTweenType energyPuzzleCapEasing = LeanTweenType.easeInOutCubic;
+    [SerializeField] private float energyPuzzleCapMoveDelay = 3f;
     
     private Puzzle _puzzle;
 
@@ -44,7 +45,8 @@ public class PuzzleController : MonoBehaviour
     public void OpenEnergyPuzzleCap()
     {
         LeanTween.move(energyPuzzleCap, energyPuzzleCapRemovedLocation.position, energyPuzzleCapMoveTime)
-                 .setEase(energyPuzzleCapEasing);
+                 .setEase(energyPuzzleCapEasing)
+                 .setDelay(energyPuzzleCapMoveDelay);
     }
 
     public void OnPuzzleComplete(string puzzleId)

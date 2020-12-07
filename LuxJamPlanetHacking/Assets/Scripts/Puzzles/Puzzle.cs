@@ -66,7 +66,7 @@ public class Puzzle : MonoBehaviour
     protected virtual void OnComplete()
     {
         isCompleted = true;
-        print($"Puzzle: {gameObject} completed");
+        //print($"Puzzle: {gameObject} completed");
 
         controller.OnPuzzleComplete(puzzleId);
 
