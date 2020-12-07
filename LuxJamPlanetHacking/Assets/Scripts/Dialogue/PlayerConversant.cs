@@ -1,180 +1,150 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerConversant : MonoBehaviour
 {
-    private string playerName = "Player";
+    [SerializeField] string playerName;
 
-    private Dialogue currentDialogue;
-    private DialogueNode currentNode = null;
-    private bool isChoosing = false;
-
-    private AIConversant currentConversant = null;
+    Dialogue currentDialogue;
+    DialogueNode currentNode = null;
+    AIConversant currentConversant = null;
+    bool isChoosing = false;
 
     public event Action onConversationUpdated;
 
-    private IPredicateEvaluator[] predicateEvaluators;
-
-    private void Awake()
+    public void StartDialogue(Dialogue newDialogue, AIConversant newConversant)
     {
-        predicateEvaluators = GetComponents<IPredicateEvaluator>();
-    }
-
-    public void StartDialogue(Dialogue newDialogue, AIConversant conversant)
-    {
-        currentConversant = conversant;
+        currentConversant = newConversant;
         currentDialogue = newDialogue;
         currentNode = currentDialogue.GetRootNode();
-
         TriggerEnterAction();
-
-        onConversationUpdated?.Invoke();
+        onConversationUpdated();
     }
 
-    public void QuitDialogue()
+    public void Quit()
     {
         currentDialogue = null;
-
         TriggerExitAction();
-
-        currentConversant = null;
         currentNode = null;
         isChoosing = false;
-
-        onConversationUpdated?.Invoke();
+        currentConversant = null;
+        onConversationUpdated();
     }
 
-    public bool IsActive() => currentDialogue != null;
+    public bool IsActive()
+    {
+        return currentDialogue != null;
+    }
 
-    public bool IsChoosing() => isChoosing;
+    public bool IsChoosing()
+    {
+        return isChoosing;
+    }
 
     public string GetText()
     {
         if (currentNode == null)
+        {
             return "";
+        }
 
-        return currentNode.Text;
+        return currentNode.GetText();
     }
 
     public string GetCurrentConversantName()
     {
-        return (IsChoosing()) ? playerName : currentConversant.GetAIName;
-    }
-
-    public string GetAIConversantName()
-    {
-        if (currentConversant)
-            return currentConversant.GetAIName;
-
-        return "";
+        if (isChoosing)
+        {
+            return playerName;
+        }
+        else
+        {
+            if (currentConversant)
+                return currentConversant.GetAIName;
+            else
+                return "";
+        }
     }
 
     public IEnumerable<DialogueNode> GetChoices()
     {
-        return FilterOnCondition(currentDialogue.GetPlayerChoices(currentNode));
+        return FilterOnCondition(currentDialogue.GetPlayerChildren(currentNode));
     }
 
-    public void SelectChoice(DialogueNode choice)
+    public void SelectChoice(DialogueNode chosenNode)
     {
-        currentNode = choice;
+        currentNode = chosenNode;
         TriggerEnterAction();
-
         isChoosing = false;
-
-        if (!currentDialogue.DisplayPlayerNodeTextOnChoice)
-            Next();
-        else
-            onConversationUpdated?.Invoke();
+        Next();
     }
 
     public void Next()
     {
-        if (UpdateIsChoosing())
-        {
-            onConversationUpdated?.Invoke();
-            return;
-        }
-
-        IEnumerable<DialogueNode> enumerable = FilterOnCondition(currentDialogue.GetAllAIChildren(currentNode));
-        List<DialogueNode> childNodes = new List<DialogueNode>();
-        foreach (DialogueNode node in enumerable)
-            childNodes.Add(node);
-
-        int nextIndex = RollNextIndex();
-
-        TriggerExitAction();
-        currentNode = childNodes[nextIndex];
-        TriggerEnterAction();
-
-        onConversationUpdated?.Invoke();
-    }
-
-    private bool UpdateIsChoosing()
-    {
-        IEnumerable<DialogueNode> playerChoices = FilterOnCondition(currentDialogue.GetPlayerChoices(currentNode));
-        int numPlayerChoices = 0;
-        foreach (DialogueNode node in playerChoices)
-            ++numPlayerChoices;
-
-        if (numPlayerChoices > 0)
+        int numPlayerResponses = FilterOnCondition(currentDialogue.GetPlayerChildren(currentNode)).Count();
+        if (numPlayerResponses > 0)
         {
             isChoosing = true;
             TriggerExitAction();
+            onConversationUpdated();
+            return;
         }
-        else
-            isChoosing = false;
 
-        return isChoosing;
-    }
-
-    private int RollNextIndex()
-    {
-        return UnityEngine.Random.Range(0, currentNode.Children.Count);
+        DialogueNode[] children = FilterOnCondition(currentDialogue.GetAIChildren(currentNode)).ToArray();
+        int randomIndex = UnityEngine.Random.Range(0, children.Count());
+        TriggerExitAction();
+        currentNode = children[randomIndex];
+        TriggerEnterAction();
+        onConversationUpdated();
     }
 
     public bool HasNext()
     {
-        IEnumerable<DialogueNode> nodes = FilterOnCondition(currentDialogue.GetAllChildren(currentNode));
-        int numNodes = 0;
-        foreach (DialogueNode node in nodes)
-            ++numNodes;
-
-        return numNodes > 0;
+        return FilterOnCondition(currentDialogue.GetAllChildren(currentNode)).Count() > 0;
     }
 
     private IEnumerable<DialogueNode> FilterOnCondition(IEnumerable<DialogueNode> inputNode)
     {
-        foreach (DialogueNode node in inputNode)
+        foreach (var node in inputNode)
+        {
             if (node.CheckCondition(GetEvaluators()))
+            {
                 yield return node;
+            }
+        }
     }
 
     private IEnumerable<IPredicateEvaluator> GetEvaluators()
     {
-        return predicateEvaluators;
+        return GetComponents<IPredicateEvaluator>();
     }
 
     private void TriggerEnterAction()
     {
         if (currentNode != null)
-            TriggerAction(currentNode.OnEnterAction);
+        {
+            TriggerAction(currentNode.GetOnEnterAction());
+        }
     }
 
     private void TriggerExitAction()
     {
         if (currentNode != null)
-            TriggerAction(currentNode.OnExitAction);
+        {
+            TriggerAction(currentNode.GetOnExitAction());
+        }
     }
 
     private void TriggerAction(string action)
     {
-        if (string.IsNullOrEmpty(action))
-            return;
+        if (action == "") return;
 
-        DialogueTrigger[] triggers = currentConversant.GetDialogueTriggers();
-        foreach (DialogueTrigger trigger in triggers)
+        foreach (DialogueTrigger trigger in currentConversant.GetComponents<DialogueTrigger>())
+        {
             trigger.Trigger(action);
+        }
     }
 }

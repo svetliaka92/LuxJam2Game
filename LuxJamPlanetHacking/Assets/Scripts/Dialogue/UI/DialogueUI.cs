@@ -22,7 +22,7 @@ public class DialogueUI : MonoBehaviour
         _player = player;
         _player.onConversationUpdated += UpdateUI;
 
-        conversantName.text = _player.GetAIConversantName();
+        conversantName.text = _player.GetCurrentConversantName();
 
         if (nextButton)
             nextButton.onClick.AddListener(_player.Next);
@@ -30,7 +30,7 @@ public class DialogueUI : MonoBehaviour
         if (quitButton)
         {
             quitButton.onClick.AddListener(Game.Instance.ReturnPlayerToStandingPosition);
-            quitButton.onClick.AddListener(_player.QuitDialogue);
+            quitButton.onClick.AddListener(_player.Quit);
         }
     }
 
@@ -55,6 +55,8 @@ public class DialogueUI : MonoBehaviour
         }
 
         //debugText.text = "Player has next: " + _player.HasNext() + ", Next button state: " + nextButton.gameObject.activeSelf;
+        Debug.Log("Player has next: " + _player.HasNext());
+        Debug.Log("Next button state: " + nextButton.gameObject.activeSelf);
     }
 
     private void BuildChoiceList()
@@ -65,7 +67,7 @@ public class DialogueUI : MonoBehaviour
         foreach (DialogueNode node in _player.GetChoices())
         {
             DialogueChoiceUI dialogueChoice = Instantiate(choicePrefab, choiceRoot);
-            dialogueChoice.SetText(node.Text);
+            dialogueChoice.SetText(node.GetText());
 
             Button button = dialogueChoice.GetButton();
             button.onClick.AddListener(() => _player.SelectChoice(node));
