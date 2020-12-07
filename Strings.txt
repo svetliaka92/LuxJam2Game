@@ -6,8 +6,11 @@ LoadWinScreen
 
 ColorBlockPuzzleComplete
 
+Items to fix:
+
 Polish items to add in the room:
 Radiator in front of the door/under the hint board
 Cable canals
+PC Cables
 Lights
 Vent
