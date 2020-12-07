@@ -8,14 +8,14 @@ public class PlayerConversant : MonoBehaviour
 {
     [SerializeField] string playerName;
 
-    Dialogue currentDialogue;
-    DialogueNode currentNode = null;
+    TestDialogue currentDialogue;
+    TestDialogueNode currentNode = null;
     AIConversant currentConversant = null;
     bool isChoosing = false;
 
     public event Action onConversationUpdated;
 
-    public void StartDialogue(Dialogue newDialogue, AIConversant newConversant)
+    public void StartDialogue(TestDialogue newDialogue, AIConversant newConversant)
     {
         currentConversant = newConversant;
         currentDialogue = newDialogue;
@@ -51,7 +51,7 @@ public class PlayerConversant : MonoBehaviour
             return "";
         }
 
-        return currentNode.GetText();
+        return currentNode.text;
     }
 
     public string GetCurrentConversantName()
@@ -69,12 +69,12 @@ public class PlayerConversant : MonoBehaviour
         }
     }
 
-    public IEnumerable<DialogueNode> GetChoices()
+    public IEnumerable<TestDialogueNode> GetChoices()
     {
         return FilterOnCondition(currentDialogue.GetPlayerChildren(currentNode));
     }
 
-    public void SelectChoice(DialogueNode chosenNode)
+    public void SelectChoice(TestDialogueNode chosenNode)
     {
         currentNode = chosenNode;
         TriggerEnterAction();
@@ -93,7 +93,7 @@ public class PlayerConversant : MonoBehaviour
             return;
         }
 
-        DialogueNode[] children = FilterOnCondition(currentDialogue.GetAIChildren(currentNode)).ToArray();
+        TestDialogueNode[] children = FilterOnCondition(currentDialogue.GetAllAIChildren(currentNode)).ToArray();
         int randomIndex = UnityEngine.Random.Range(0, children.Count());
         TriggerExitAction();
         currentNode = children[randomIndex];
@@ -106,7 +106,7 @@ public class PlayerConversant : MonoBehaviour
         return FilterOnCondition(currentDialogue.GetAllChildren(currentNode)).Count() > 0;
     }
 
-    private IEnumerable<DialogueNode> FilterOnCondition(IEnumerable<DialogueNode> inputNode)
+    private IEnumerable<TestDialogueNode> FilterOnCondition(IEnumerable<TestDialogueNode> inputNode)
     {
         foreach (var node in inputNode)
         {
@@ -126,7 +126,7 @@ public class PlayerConversant : MonoBehaviour
     {
         if (currentNode != null)
         {
-            TriggerAction(currentNode.GetOnEnterAction());
+            TriggerAction(currentNode.onEnterAction);
         }
     }
 
@@ -134,7 +134,7 @@ public class PlayerConversant : MonoBehaviour
     {
         if (currentNode != null)
         {
-            TriggerAction(currentNode.GetOnExitAction());
+            TriggerAction(currentNode.onExitAction);
         }
     }
 

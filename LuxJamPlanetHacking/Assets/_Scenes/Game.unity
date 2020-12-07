@@ -333,6 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c935baedab3d23845a689fec71112523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerName: 
 --- !u!114 &13749860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16011,6 +16012,350 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 063bbc9b4b52dea4ea8dac0fb55e624f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PCTestDialoguePaths:
+  - nodes:
+    - nodeName: WelcomeUser
+      isPlayerSpeaking: 0
+      text: Welcome, User. To continue with using the terminal, please enter the
+        correct password.
+      children:
+      - Password1
+      - Password2
+      - Password3
+      - Password4
+      - Password5
+      - Password6
+      - Password7
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: Password1
+      isPlayerSpeaking: 1
+      text: Password
+      children:
+      - IncorrectPassword
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: Password2
+      isPlayerSpeaking: 1
+      text: 123456789
+      children:
+      - IncorrectPassword
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: Password3
+      isPlayerSpeaking: 1
+      text: New password
+      children:
+      - IncorrectPassword
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and:
+        - or:
+          - predicate: HasPassword
+            isNegated: 0
+            parameters:
+            - NumberPuzzleComplete
+    - nodeName: Password4
+      isPlayerSpeaking: 1
+      text: Test
+      children:
+      - IncorrectPassword
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and:
+        - or:
+          - predicate: HasPassword
+            isNegated: 0
+            parameters:
+            - NumberPuzzleComplete
+    - nodeName: Password5
+      isPlayerSpeaking: 1
+      text: Fortitude
+      children:
+      - CorrectPassword
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and:
+        - or:
+          - predicate: HasPassword
+            isNegated: 0
+            parameters:
+            - NumberPuzzleComplete
+    - nodeName: Password6
+      isPlayerSpeaking: 1
+      text: I'm new here, how am I supposed to know the password if you don't give
+        it to me first?
+      children:
+      - CunningResult1
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and:
+        - or:
+          - predicate: Cunning
+            isNegated: 0
+            parameters:
+            - 7
+    - nodeName: Password7
+      isPlayerSpeaking: 1
+      text: I'm new here. Where can I find this password?
+      children:
+      - IntResult
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and:
+        - or:
+          - predicate: Intelligence
+            isNegated: 0
+            parameters:
+            - 7
+    - nodeName: IncorrectPassword
+      isPlayerSpeaking: 0
+      text: Password incorrect. Would you like to try entering the password again?
+      children:
+      - IncorrectPasswordYes
+      - IncorrectPasswordNo
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: CorrectPassword
+      isPlayerSpeaking: 0
+      text: Password correct. Checking system connection...
+      children:
+      - EndDialogue
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: IncorrectPasswordYes
+      isPlayerSpeaking: 1
+      text: Yes
+      children:
+      - Password1
+      - Password2
+      - Password3
+      - Password4
+      - Password5
+      - Password6
+      - Password7
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: IncorrectPasswordNo
+      isPlayerSpeaking: 1
+      text: No
+      children:
+      - TryAgain
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: TryAgain
+      isPlayerSpeaking: 0
+      text: Alright. Come back when you're ready.
+      children: []
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: CunningResult1
+      isPlayerSpeaking: 0
+      text: Ah, Sergey regularly does that with the new recruits. The password is
+        "Fortitude"
+      children:
+      - CunningResult2
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: CunningResult2
+      isPlayerSpeaking: 0
+      text: Now, please enter the pass...word...Drat!
+      children:
+      - CunningPassword
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: CunningPassword
+      isPlayerSpeaking: 1
+      text: Fortitude
+      children:
+      - PasswordResponse
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: PasswordResponse
+      isPlayerSpeaking: 0
+      text: ...wheeelp...
+      children:
+      - CorrectPassword
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: IntResult
+      isPlayerSpeaking: 0
+      text: Ah, Sergey regularly does this. You can find the password in the number
+        box besides the table. Sergey usually keeps the code to it on that board
+        on the wall.
+      children: []
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: EndDialogue
+      isPlayerSpeaking: 0
+      text: Connection could not be established. Please check the connector box for
+        faults.
+      children: []
+      onEnterAction: 
+      onExitAction: OpenEnergyPuzzle
+      condition:
+        and: []
+  - nodes:
+    - nodeName: Attempt
+      isPlayerSpeaking: 0
+      text: Attempting connection...
+      children:
+      - Fail
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: Fail
+      isPlayerSpeaking: 0
+      text: Connection could not be established. Please check the connector box for
+        faults.
+      children: []
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+  - nodes:
+    - nodeName: Attempt
+      isPlayerSpeaking: 0
+      text: Attempting connection...
+      children:
+      - Success
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: Success
+      isPlayerSpeaking: 0
+      text: Connection established!
+      children:
+      - Protection
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: Protection
+      isPlayerSpeaking: 0
+      text: There seems to be a protection system in place. Would you like to try
+        to bypass it?
+      children:
+      - Yes
+      - No
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: Yes
+      isPlayerSpeaking: 1
+      text: Yes
+      children:
+      - Protocols
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: No
+      isPlayerSpeaking: 1
+      text: No
+      children:
+      - TryAgain
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: Protocols
+      isPlayerSpeaking: 0
+      text: Loading protocols...
+      children:
+      - Done
+      - Tried
+      onEnterAction: OpenColorPuzzle
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: Done
+      isPlayerSpeaking: 1
+      text: Done!
+      children:
+      - GoodWork
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and:
+        - or:
+          - predicate: ColorBlockPuzzleComplete
+            isNegated: 0
+            parameters:
+            - ColorBlockPuzzleComplete
+    - nodeName: Tried
+      isPlayerSpeaking: 1
+      text: Well...I tried...
+      children:
+      - TryAgain
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and:
+        - or:
+          - predicate: ColorBlockPuzzleComplete
+            isNegated: 1
+            parameters:
+            - ColorBlockPuzzleComplete
+    - nodeName: GoodWork
+      isPlayerSpeaking: 0
+      text: Good work!
+      children:
+      - AccessGranted
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: TryAgain
+      isPlayerSpeaking: 0
+      text: Alright. Try again when you are ready.
+      children: []
+      onEnterAction: 
+      onExitAction: 
+      condition:
+        and: []
+    - nodeName: AccessGranted
+      isPlayerSpeaking: 0
+      text: 'Access to Planet mainframe granted. '
+      children: []
+      onEnterAction: 
+      onExitAction: OpenWinScreen
+      condition:
+        and: []
   PCDialoguePaths:
   - {fileID: 11400000, guid: 0fba596cbac8cd145bedd871afc806ff, type: 2}
   - {fileID: 11400000, guid: 43d38678630b06741bba3e5ea3d97aae, type: 2}

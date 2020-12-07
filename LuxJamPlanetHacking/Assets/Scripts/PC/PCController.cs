@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PCController : MonoBehaviour
 {
+    [SerializeField] private TestDialogue[] PCTestDialoguePaths;
     [SerializeField] private Dialogue[] PCDialoguePaths;
     [SerializeField] private string[] dialogueIds;
     [SerializeField] private string numberPuzzleId;
@@ -14,9 +15,11 @@ public class PCController : MonoBehaviour
     [SerializeField] private AIConversant aiConversant;
     [SerializeField] private GameObject UICanvas;
 
+    private TestDialogue PCTestDialogue;
     private Dialogue PCDialogue;
 
     private Dictionary<string, Dialogue> dialogueLookup = new Dictionary<string, Dialogue>();
+    private Dictionary<string, TestDialogue> testDialogueLookup = new Dictionary<string, TestDialogue>();
 
     private void Awake()
     {
@@ -24,8 +27,13 @@ public class PCController : MonoBehaviour
 
         BuildDialogueLookup();
 
-        PCDialogue = dialogueLookup[dialogueIds[0]]; // load first dialogue
+        //PCDialogue = dialogueLookup[dialogueIds[0]]; // load first dialogue
         //PCDialogue = dialogueLookup[dialogueIds[2]];
+
+        foreach (TestDialogue testDialogue in PCTestDialoguePaths)
+            testDialogue.Init();
+
+        PCTestDialogue = PCTestDialoguePaths[0];
     }
 
     private void BuildDialogueLookup()
@@ -34,6 +42,11 @@ public class PCController : MonoBehaviour
         {
             dialogueLookup[dialogueIds[i]] = PCDialoguePaths[i];
         }
+
+        for (int i = 0; i < PCTestDialoguePaths.Length; ++i)
+        {
+            testDialogueLookup[dialogueIds[i]] = PCTestDialoguePaths[i];
+        }
     }
 
     public void OnPlayerInteracted(InteractionType type)
@@ -41,7 +54,7 @@ public class PCController : MonoBehaviour
         if (type == InteractionType.PC)
         {
             UICanvas.SetActive(true);
-            Game.Instance.Player.GetPlayerConversant.StartDialogue(PCDialogue, aiConversant);
+            Game.Instance.Player.GetPlayerConversant.StartDialogue(PCTestDialogue, aiConversant);
         }
         else
         {
@@ -52,7 +65,8 @@ public class PCController : MonoBehaviour
     public void OnPasswordGiven()
     {
         // load energy not connected dialogue
-        PCDialogue = dialogueLookup[dialogueIds[1]];
+        //PCDialogue = dialogueLookup[dialogueIds[1]];
+        PCTestDialogue = testDialogueLookup[dialogueIds[1]];
     }
 
     public void OnPuzzleComplete(string puzzleId)
@@ -63,7 +77,8 @@ public class PCController : MonoBehaviour
         }
         else if (puzzleId.Equals(energyBlockPuzzleId))
         {
-            PCDialogue = dialogueLookup[dialogueIds[2]];
+            //PCDialogue = dialogueLookup[dialogueIds[2]];
+            PCTestDialogue = testDialogueLookup[dialogueIds[2]];
         }
     }
 }

@@ -53,10 +53,6 @@ public class DialogueUI : MonoBehaviour
             AIText.text = _player.GetText();
             nextButton.gameObject.SetActive(_player.HasNext());
         }
-
-        //debugText.text = "Player has next: " + _player.HasNext() + ", Next button state: " + nextButton.gameObject.activeSelf;
-        Debug.Log("Player has next: " + _player.HasNext());
-        Debug.Log("Next button state: " + nextButton.gameObject.activeSelf);
     }
 
     private void BuildChoiceList()
@@ -64,10 +60,10 @@ public class DialogueUI : MonoBehaviour
         foreach (Transform child in choiceRoot)
             Destroy(child.gameObject);
 
-        foreach (DialogueNode node in _player.GetChoices())
+        foreach (TestDialogueNode node in _player.GetChoices())
         {
             DialogueChoiceUI dialogueChoice = Instantiate(choicePrefab, choiceRoot);
-            dialogueChoice.SetText(node.GetText());
+            dialogueChoice.SetText(node.text);
 
             Button button = dialogueChoice.GetButton();
             button.onClick.AddListener(() => _player.SelectChoice(node));
