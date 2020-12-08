@@ -27,7 +27,7 @@ public class PCController : MonoBehaviour
 
         BuildDialogueLookup();
 
-        //PCDialogue = dialogueLookup[dialogueIds[0]]; // load first dialogue
+        PCDialogue = dialogueLookup[dialogueIds[0]]; // load first dialogue
         //PCDialogue = dialogueLookup[dialogueIds[2]];
 
         foreach (TestDialogue testDialogue in PCTestDialoguePaths)
@@ -54,7 +54,7 @@ public class PCController : MonoBehaviour
         if (type == InteractionType.PC)
         {
             UICanvas.SetActive(true);
-            Game.Instance.Player.GetPlayerConversant.StartDialogue(PCTestDialogue, aiConversant);
+            Game.Instance.Player.GetPlayerConversant.StartDialogue(PCDialogue, aiConversant);
         }
         else
         {
@@ -65,7 +65,7 @@ public class PCController : MonoBehaviour
     public void OnPasswordGiven()
     {
         // load energy not connected dialogue
-        //PCDialogue = dialogueLookup[dialogueIds[1]];
+        PCDialogue = dialogueLookup[dialogueIds[1]];
         PCTestDialogue = testDialogueLookup[dialogueIds[1]];
     }
 
@@ -77,7 +77,7 @@ public class PCController : MonoBehaviour
         }
         else if (puzzleId.Equals(energyBlockPuzzleId))
         {
-            //PCDialogue = dialogueLookup[dialogueIds[2]];
+            PCDialogue = dialogueLookup[dialogueIds[2]];
             PCTestDialogue = testDialogueLookup[dialogueIds[2]];
         }
     }

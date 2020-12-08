@@ -122,7 +122,7 @@ public class DialogueEditor : EditorWindow
             draggedNode = GetNodeAtPoint(Event.current.mousePosition + scrollPosition);
             if (draggedNode != null)
             {
-                draggingOffset = draggedNode.GetRect().position - Event.current.mousePosition;
+                draggingOffset = draggedNode.GetRect.position - Event.current.mousePosition;
                 Selection.activeObject = draggedNode;
             }
             else
@@ -150,13 +150,13 @@ public class DialogueEditor : EditorWindow
     private void DrawNode(DialogueNode node)
     {
         GUIStyle style = nodeStyle;
-        if (node.IsPlayerSpeaking())
+        if (node.IsPlayerSpeaking)
             style = playerNodeStyle;
 
-        GUILayout.BeginArea(node.GetRect(), style);
+        GUILayout.BeginArea(node.GetRect, style);
 
         EditorGUILayout.LabelField($"Node: {node.name}", EditorStyles.whiteLabel);
-        node.SetText(EditorGUILayout.TextField(node.GetText()));
+        node.SetText(EditorGUILayout.TextField(node.Text));
 
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("X"))
@@ -190,7 +190,7 @@ public class DialogueEditor : EditorWindow
                 linkingParentNode = null;
             }
         }
-        else if (linkingParentNode.GetChildren().Contains(node.name))
+        else if (linkingParentNode.Children.Contains(node.name))
         {
             if (GUILayout.Button("Unlink"))
             {
@@ -210,10 +210,10 @@ public class DialogueEditor : EditorWindow
 
     private void DrawConnections(DialogueNode node)
     {
-        Vector3 startPosition = new Vector2(node.GetRect().xMax, node.GetRect().center.y);
+        Vector3 startPosition = new Vector2(node.GetRect.xMax, node.GetRect.center.y);
         foreach (DialogueNode childNode in selectedDialogue.GetAllChildren(node))
         {
-            Vector3 endPosition = new Vector2(childNode.GetRect().xMin, childNode.GetRect().center.y);
+            Vector3 endPosition = new Vector2(childNode.GetRect.xMin, childNode.GetRect.center.y);
             Vector3 controlPointOffset = endPosition - startPosition;
             controlPointOffset.y = 0f;
             controlPointOffset.x *= 0.8f;
@@ -232,7 +232,7 @@ public class DialogueEditor : EditorWindow
         DialogueNode returnNode = null;
 
         foreach (DialogueNode node in selectedDialogue.GetAllNodes())
-            if (node.GetRect().Contains(point))
+            if (node.GetRect.Contains(point))
                 returnNode = node;
 
         return returnNode;

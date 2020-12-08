@@ -30,7 +30,7 @@ public class DialogueUI : MonoBehaviour
         if (quitButton)
         {
             quitButton.onClick.AddListener(Game.Instance.ReturnPlayerToStandingPosition);
-            quitButton.onClick.AddListener(_player.Quit);
+            quitButton.onClick.AddListener(_player.QuitDialogue);
         }
     }
 
@@ -60,10 +60,10 @@ public class DialogueUI : MonoBehaviour
         foreach (Transform child in choiceRoot)
             Destroy(child.gameObject);
 
-        foreach (TestDialogueNode node in _player.GetChoices())
+        foreach (DialogueNode node in _player.GetChoices())
         {
             DialogueChoiceUI dialogueChoice = Instantiate(choicePrefab, choiceRoot);
-            dialogueChoice.SetText(node.text);
+            dialogueChoice.SetText(node.Text);
 
             Button button = dialogueChoice.GetButton();
             button.onClick.AddListener(() => _player.SelectChoice(node));
